@@ -121,6 +121,11 @@
     background-color: hsl(31, 77%, 52%);
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+
+    @media (width < 375px) {
+      border-top-right-radius: 5px;
+      border-bottom-left-radius: 0;
+    }
   }
 
   .cyan-bg {
@@ -131,6 +136,11 @@
     background-color: hsl(179, 100%, 13%);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+
+    @media (width < 375px) {
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 5px;
+    }
   }
 
   .gold-text {
