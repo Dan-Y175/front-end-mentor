@@ -10,7 +10,7 @@ Users should be able to:
 - See hover and focus states for all interactive elements on the page
 - **Bonus**: Use the local JSON data to dynamically populate the content
 
-- Live Site URL: https://dan-y175.github.io/front-end-mentor/rsults-summary-component
+- Live Site URL: https://dan-y175.github.io/front-end-mentor/results-summary-component
 
 ### Built with
 

@@ -4,4 +4,4 @@
 
 qr-code-component-main: https://dan-y175.github.io/front-end-mentor/qr-code-component-main
 
-results-summary-component: https://dan-y175.github.io/front-end-mentor/rsults-summary-component
+results-summary-component: https://dan-y175.github.io/front-end-mentor/results-summary-component
