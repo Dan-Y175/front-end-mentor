@@ -83,7 +83,8 @@
 
     .container {
         margin: 25%;
-        block-size: 300px;
+        min-block-size: 300px;
+        block-size: auto;
         max-inline-size: 500px;
         border-radius: 15px;
         background-color: #202020;
