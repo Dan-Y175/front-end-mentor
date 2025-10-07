@@ -2,16 +2,22 @@
 import searchIcon from "../assets/images/icon-search.svg";
 
 let search = $state("");
+let results = $state();
+let selected = $state();
+let coord = $state();
+
+let {toSend} = $props();
 
 async function fetchLocation() {
   let searchParams = search.replace(" ", "+");
-
-  let response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${searchParams}&count=5&language=en&format=json`)
-  let result = await response.json();
-
-  console.log(result);
+  let response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${searchParams}&count=3&language=en&format=json`)
+  results = (await response.json()).results;
 }
 
+function submitLocation() {
+  coord = {"latitude": selected.latitude, "longitude": selected.longitude}
+  toSend(coord);
+}
 
 </script>
 
@@ -21,20 +27,26 @@ async function fetchLocation() {
   <div class="search-bar">
     <div class="search-box">
       <img src={searchIcon} alt="searchIcon"/>
-      <input type="text" bind:value={search} placeholder="Search for a place..."/>
+      <input type="text" bind:value={search} on:input={fetchLocation} placeholder="Search for a place..."/>
+      {#if results}
+        <div class="dropdown">
+          <ul>
+          {#each results as country}
+            <li on:click={() => selected = country} class:choice={selected == country}>{country.name}</li>
+          {/each}
+          </ul>
+        </div>
+      {/if}
     </div>
-    <button class="search" on:click={fetchLocation}>Submit</button>
+    <button class="search" on:click={submitLocation}>Submit</button>
   </div>
   
 </div>
 
 
 
-
 <style>
-  
   .container {
-    border: dotted white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,6 +69,7 @@ async function fetchLocation() {
     display: flex;
     flex-direction: row;
     border: 2px solid transparent;
+    position: relative;
   }
 
   .search-box:focus-within {
@@ -90,6 +103,38 @@ async function fetchLocation() {
   .search:active {
 
   }
+
+  .dropdown {
+    position: absolute;
+    top: 125%;
+    left: 0;
+    background-color: hsl(243, 27%, 20%);
+    border-radius: inherit;
+    inline-size: 100%;
+  }
+
+  .dropdown ul {
+    list-style: none;
+    padding-inline: 5px;
+    padding-block: 10px;
+    margin: 0;
+  }
+
+  .dropdown ul li {
+    padding: 5px;
+    border-radius: 5px;
+    border: solid 2px hsl(243, 27%, 20%);
+  }
+
+
+  .dropdown ul li:hover {
+    background-color: hsl(243, 23%, 30%);
+  }
+
+  .dropdown ul li.choice {
+    border: solid white 2px;
+  }
+
 
 
 

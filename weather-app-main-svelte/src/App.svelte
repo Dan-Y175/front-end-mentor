@@ -3,14 +3,17 @@
   import Searchbar from "./lib/Searchbar.svelte";
 
   let toggled = $state();
+  let coord = $state();
 
-  $inspect(toggled);
+  function receiveData(data) {
+    coord = data;
+    alert(data.latitude + " " + data.longitude);
+  }
 </script>
 
 <main>
   <Header bind:toggled/>
-  <Searchbar/>
-
+  <Searchbar toSend={receiveData}/>
 
 </main>
 
