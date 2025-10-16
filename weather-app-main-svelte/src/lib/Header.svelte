@@ -4,23 +4,51 @@
     import dropImg from "../assets/images/icon-dropdown.svg";
 
     let unitsDrop = false;
+    let imperial = false;
+    let dropDown;
     export let toggled = {
         "temperature" : "celsius",
         "windSpeed": "kmh",
-        "precipitation": "milimeters"
+        "precipitation": "mm"
     };
 
+    function imperialSwitch() {
+        toggled = {
+        "temperature" : "fahrenheit",
+        "windSpeed": "mph",
+        "precipitation": "inch"
+    };
+        imperial = true;
+    }
+
+    function metricSwitch() {
+        toggled = {
+        "temperature" : "celsius",
+        "windSpeed": "kmh",
+        "precipitation": "mm"
+    }
+        imperial = false;
+    }
+
+    function onWindowClick(e) {
+        if (dropDown.contains(e.target) == false) {
+            unitsDrop = false;
+        }
+    }
+
 </script>
+
+<svelte:window on:click={onWindowClick} />
   
 <div class="header">
     <div class="weather-now-header">
         <img src={logo} alt="logo"/>
     </div>
 
-    <div class="units">
+    <div class="units" bind:this={dropDown}>
         <button on:click={() => unitsDrop = !unitsDrop}>
         <span>
-            <img src={unit} alt="unit" width="15px"/>
+            <img src={unit} alt="unit" width="13px"/>
             <p>Units</p>
             <img src={dropImg} alt="dropImg"/>
         </span>
@@ -29,7 +57,11 @@
                 <!-- svelte-ignore a11y_click_events_have_key_events -->
                 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
             <ul class="dropdown">
-                <li class="toggled">Switch to Imperial</li>
+                {#if !imperial}
+                    <li class="toggled" on:click={() => imperialSwitch()}>Switch to Imperial</li>
+                {:else}
+                    <li class="toggled" on:click={() => metricSwitch()}>Switch to Metric</li>
+                {/if}
                 <p>Temperature</p>
 
                 <li class:active={toggled.temperature == "celsius"} on:click={() => toggled.temperature = "celsius"}>Celsius (*C)
@@ -45,10 +77,10 @@
                     <span> {#if toggled.windSpeed == "mph"} ✔ {/if}</span></li>
                 <hr>
                 <p>Precipitation</p>
-                <li class:active={toggled.precipitation == "milimeters"} on:click={() => toggled.precipitation = "milimeters"}>Milimeters (mm)
-                    <span> {#if toggled.precipitation == "milimeters"} ✔ {/if}</span></li>
-                <li class:active={toggled.precipitation == "inches"} on:click={() => toggled.precipitation = "inches"}>Inches (in)
-                    <span> {#if toggled.precipitation == "inches"} ✔ {/if}</span></li>
+                <li class:active={toggled.precipitation == "mm"} on:click={() => toggled.precipitation = "mm"}>Milimeters (mm)
+                    <span> {#if toggled.precipitation == "mm"} ✔ {/if}</span></li>
+                <li class:active={toggled.precipitation == "inch"} on:click={() => toggled.precipitation = "inch"}>Inches (in)
+                    <span> {#if toggled.precipitation == "inch"} ✔ {/if}</span></li>
             </ul>
         {/if}
     </div>
@@ -69,11 +101,12 @@
         background-color: hsl(243, 27%, 20%);
         border-radius: 5px;
         position: relative;
+        z-index: 1;
     }
 
     .units button {
         all: unset;
-        padding: 5px;
+        padding: 5px 10px;
     }
 
     .units span{
@@ -88,7 +121,7 @@
 
     .dropdown {
         list-style: none;
-        background-color: hsl(243, 23%, 24%);
+        background-color: hsl(243, 27%, 20%);
         border-radius: 5px;
         position: absolute;
         right: 0px;

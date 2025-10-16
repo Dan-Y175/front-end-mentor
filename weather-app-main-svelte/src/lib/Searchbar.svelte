@@ -1,26 +1,46 @@
 <script>
 import searchIcon from "../assets/images/icon-search.svg";
+import errorIcon from "../assets/images/icon-error.svg"
+import reloadIcon from "../assets/images/icon-retry.svg"
 
 let search = $state("");
 let results = $state();
-let selected = $state();
-let coord = $state();
+let location = $state();
+let errorPage = $state(false);
 
-let {toSend} = $props();
+let {toSend, windSpeedUnit, temperatureUnit, precipitationUnit} = $props();
 
 async function fetchLocation() {
   let searchParams = search.replace(" ", "+");
-  let response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${searchParams}&count=3&language=en&format=json`)
-  results = (await response.json()).results;
+  try {
+    let response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${searchParams}&count=3&language=en&format=json`);
+    if (response.status != 200) {
+      throw new Error;
+    }
+    results = (await response.json()).results;
+  } catch (error) {
+    errorPage = true;
+  }  
 }
 
-function submitLocation() {
-  coord = {"latitude": selected.latitude, "longitude": selected.longitude}
-  toSend(coord);
+async function submitLocation() {
+  let response = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&wind_speed_unit=${windSpeedUnit}&temperature_unit=${temperatureUnit}&precipitation_unit=${precipitationUnit}`);
+  let weatherData = await response.json();
+  toSend({location, weatherData});
+  search = "";
+  results = "";
 }
-
 </script>
 
+{#if errorPage} 
+<div class="error-page">
+  <img src={errorIcon} alt="errorIcon" width=40px/>
+  <h1>Something went wrong</h1>
+  <p>We couldn't connect to the server (API error). Please try again in a few moments.</p>
+  <button on:click={()=>window.location.reload()}><span><img src={reloadIcon} alt="reloadIcon" width=10px>Retry</span></button>
+</div>
+
+{:else}
 
 <div class="container">
   <h1>How's the sky looking today?</h1>
@@ -32,7 +52,7 @@ function submitLocation() {
         <div class="dropdown">
           <ul>
           {#each results as country}
-            <li on:click={() => selected = country} class:choice={selected == country}>{country.name}</li>
+            <li on:click={() => location = country} class:choice={location == country}>{country.name}</li>
           {/each}
           </ul>
         </div>
@@ -43,13 +63,40 @@ function submitLocation() {
   
 </div>
 
+{/if}
 
 
 <style>
+
+  .error-page {
+    text-align: center;
+    max-inline-size: 500px;
+    margin-inline: auto;
+  }
+
+  .error-page button {
+    all: unset;
+    background-color: hsl(243, 27%, 20%);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .error-page span {
+    display: flex;
+    text-align: center;
+    padding: 0;
+    gap: 5px;
+  }
+
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .container > h1 {
+    font-size: 3rem;
+    margin-block-end: 3rem;
   }
 
   .search-bar {
@@ -100,10 +147,6 @@ function submitLocation() {
     background-color:hsl(248, 70%, 36%);
   }
 
-  .search:active {
-
-  }
-
   .dropdown {
     position: absolute;
     top: 125%;
@@ -111,6 +154,7 @@ function submitLocation() {
     background-color: hsl(243, 27%, 20%);
     border-radius: inherit;
     inline-size: 100%;
+    z-index: 1;
   }
 
   .dropdown ul {
@@ -134,7 +178,6 @@ function submitLocation() {
   .dropdown ul li.choice {
     border: solid white 2px;
   }
-
 
 
 
