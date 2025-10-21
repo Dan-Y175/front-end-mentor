@@ -2,29 +2,40 @@
 import searchIcon from "../assets/images/icon-search.svg";
 import errorIcon from "../assets/images/icon-error.svg"
 import reloadIcon from "../assets/images/icon-retry.svg"
+import loadingIcon from "../assets/images/icon-loading.svg"
 
 let search = $state("");
 let results = $state();
+let loading = $state();
+let toggleDropdown = $state();
 let location = $state();
 let errorPage = $state(false);
 
-let {toSend, windSpeedUnit, temperatureUnit, precipitationUnit} = $props();
+let {toSend} = $props();
 
 async function fetchLocation() {
+  toggleDropdown = true;
   let searchParams = search.replace(" ", "+");
+  results = true;
+  loading = true;
+  if (!search) {
+    toggleDropdown = false;
+  }
   try {
-    let response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${searchParams}&count=3&language=en&format=json`);
+    let response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${searchParams}&count=4&language=en&format=json`);
     if (response.status != 200) {
       throw new Error;
     }
     results = (await response.json()).results;
+    loading = false;
+
   } catch (error) {
     errorPage = true;
   }  
 }
 
 async function submitLocation() {
-  let response = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&wind_speed_unit=${windSpeedUnit}&temperature_unit=${temperatureUnit}&precipitation_unit=${precipitationUnit}`);
+  let response = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,weather_code&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&wind_speed_unit=kmh&temperature_unit=celsius&precipitation_unit=mm`);
   let weatherData = await response.json();
   toSend({location, weatherData});
   search = "";
@@ -48,13 +59,24 @@ async function submitLocation() {
     <div class="search-box">
       <img src={searchIcon} alt="searchIcon"/>
       <input type="text" bind:value={search} on:input={fetchLocation} placeholder="Search for a place..."/>
-      {#if results}
+      {#if toggleDropdown}
         <div class="dropdown">
-          <ul>
-          {#each results as country}
-            <li on:click={() => location = country} class:choice={location == country}>{country.name}</li>
-          {/each}
-          </ul>
+          
+            {#if loading}
+            <li class="loading">
+              <img src={loadingIcon} alt="loadingIcon" width=20px/>
+              <p>Search in progress</p>
+            </li>
+            {:else if results}
+            <ul>
+              {#each results as country}
+                <li on:click={() => location = country} class:choice={location == country}>{country.name}</li>
+              {/each}
+            </ul>
+            {:else}
+            <p>No search result found!</p>
+      {/if}
+          
         </div>
       {/if}
     </div>
@@ -111,7 +133,7 @@ async function submitLocation() {
     padding: 10px;
     padding-inline-start: 10px;
     border-radius: 10px;
-    inline-size: 300px;
+    inline-size: 400px;
     text-align: start;
     display: flex;
     flex-direction: row;
@@ -155,11 +177,12 @@ async function submitLocation() {
     border-radius: inherit;
     inline-size: 100%;
     z-index: 1;
+    padding-inline-start: 10px;
   }
 
   .dropdown ul {
     list-style: none;
-    padding-inline: 5px;
+    padding-inline: 0;
     padding-block: 10px;
     margin: 0;
   }
@@ -177,6 +200,13 @@ async function submitLocation() {
 
   .dropdown ul li.choice {
     border: solid white 2px;
+  }
+
+  .loading {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    gap: 10px;
   }
 
 

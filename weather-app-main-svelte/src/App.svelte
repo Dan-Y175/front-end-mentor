@@ -16,8 +16,8 @@
 <main>
   <div class="frame">
     <Header bind:toggled/>
-    <Searchbar toSend={receiveData} windSpeedUnit={toggled.windSpeed} temperatureUnit={toggled.temperature} precipitationUnit={toggled.precipitation}/>
-    <Dashboard {location} {weatherData} windSpeedUnit={toggled.windSpeed} precipitationUnit={toggled.precipitation}/>
+    <Searchbar toSend={receiveData}/>
+    <Dashboard {location} {weatherData} windSpeedUnit={toggled.windSpeed} precipitationUnit={toggled.precipitation} temperatureUnit={toggled.temperature}/>
   </div>
 </main>
 

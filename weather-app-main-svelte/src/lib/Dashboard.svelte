@@ -10,7 +10,7 @@
   import errorIcon from "../assets/images/icon-error.svg"
   import dropImg from "../assets/images/icon-dropdown.svg";
 
-  let {location, weatherData, windSpeedUnit, precipitationUnit} = $props();
+  let {location, weatherData, windSpeedUnit, precipitationUnit, temperatureUnit} = $props();
 
   let dayDrop = $state(false);
   let selectedDay = $state(new Date().toLocaleDateString('en-US', {weekday: "long"}));
@@ -103,6 +103,35 @@
       }
     };
 
+
+  function temperatureConverter(temperature) {
+    switch (temperatureUnit) {
+      case "celsius":
+        return temperature;
+      case "fahrenheit":
+        return Math.floor(temperature * 1.8 + 32);
+    }
+  }
+
+  function windConverter(windSpeed) {
+    switch (windSpeedUnit) {
+      case "kmh":
+        return windSpeed;
+      case "mph":
+        return Math.floor(windSpeed / 1.609);
+        
+    }
+  }
+
+  function precipitationConverter(precipitation) {
+    switch (precipitationUnit) {
+      case "mm":
+        return precipitation;
+      case "inch":
+        return Math.floor(precipitation / 25.4);
+    }
+  }
+
 </script>
 
 <svelte:window on:click={onWindowClick} />
@@ -118,7 +147,7 @@
         </div>
         <div class="main-card-temp">
           <img src={getWeatherCode(weatherData.current.weather_code)} alt="sunIcon" width="100px">
-          <p>{weatherData.current.temperature_2m}</p>
+          <p>{temperatureConverter(weatherData.current.temperature_2m)}</p>
         </div>
       </div>
     </div>
@@ -126,7 +155,7 @@
     <div class="main-card-lower-section">
       <div class="main-card-boxes">
         <p>Feels like</p>
-        <h3>{weatherData.current.apparent_temperature}°</h3>
+        <h3>{temperatureConverter(weatherData.current.apparent_temperature)}°</h3>
       </div>
       <div class="main-card-boxes">
         <p>Humidity</p>
@@ -134,11 +163,11 @@
       </div>
       <div class="main-card-boxes">
         <p>Wind</p>
-        <h3>{weatherData.current.wind_speed_10m} {#if windSpeedUnit == "kmh"}km/h{:else}mph{/if}</h3>
+        <h3>{Math.floor(windConverter(weatherData.current.wind_speed_10m))} {#if windSpeedUnit == "kmh"}km/h{:else}mph{/if}</h3>
       </div>
       <div class="main-card-boxes">
         <p>Precipitation</p>
-        <h3>{weatherData.current.precipitation} {#if precipitationUnit == "mm"}mm{:else}in{/if}</h3>
+        <h3>{precipitationConverter(weatherData.current.precipitation)} {#if precipitationUnit == "mm"}mm{:else}in{/if}</h3>
       </div>
     </div>
   </section>
@@ -151,8 +180,8 @@
         <p>{day}</p>
         <img src={getWeatherCode(weatherData.daily.weather_code[i])} alt="weatherIcon" width="40px"/>
         <div class="min-max-temp">
-          <p>{Math.floor(weatherData.daily.temperature_2m_max[i])}°</p>
-          <p>{Math.floor(weatherData.daily.temperature_2m_min[i])}°</p>
+          <p>{temperatureConverter(weatherData.daily.temperature_2m_max[i])}°</p>
+          <p>{temperatureConverter(weatherData.daily.temperature_2m_min[i])}°</p>
         </div>
       </div>
     {/each}
@@ -186,7 +215,7 @@
           <img src={getWeatherCode(day.weatherCode)} alt="weatherIcon" width="40px"/>
           <p>{timeConverter(day.hour)}</p>
         </div>
-        <p>{Math.floor(day.temperature)}°</p>
+        <p>{temperatureConverter(day.temperature  )}°</p>
       </div>
       {/each}
     </div>
