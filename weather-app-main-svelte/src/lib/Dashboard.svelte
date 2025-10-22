@@ -14,7 +14,7 @@
 
   let dayDrop = $state(false);
   let selectedDay = $state(new Date().toLocaleDateString('en-US', {weekday: "long"}));
-  let dropDown;
+  let dropDown = $state();
 
   const dailyDateFormat = new Intl.DateTimeFormat('en-NZ', {
     weekday: "short"
@@ -234,17 +234,17 @@
     grid-template-areas: 
     "main-card hourly-forecast"
     "daily-forecast hourly-forecast";
-    margin-inline: 100px;
     gap: 20px;
     margin-block: 30px;
-    
+    inline-size: 1000px;
+    margin-inline: auto;
   }
 
   .main-card {
     grid-area: main-card;
     background-image: url("../assets/images/bg-today-large.svg");
     background-repeat: no-repeat;
-    background-size:auto;
+    background-size: auto;
     block-size: 200px;
     border-radius: 20px;
     display: flex;
@@ -257,7 +257,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-inline: 20px;
+    margin-inline: 2rem;
   }
 
   .location {
@@ -280,15 +280,16 @@
     flex-direction: row;
     justify-content: space-between;
     margin-block-start: 20px;
+
   }
 
   .main-card-boxes {
     background-color: hsl(243, 27%, 20%);
-    inline-size: 125px;
     block-size: 75px;
     border-radius: 10px;
     border: solid hsl(243, 23%, 24%) 2px;
     padding: 10px;
+    inline-size: 8rem;
   }
 
   .main-card-boxes p {
@@ -301,33 +302,12 @@
     font-size: 1.5rem;
   }
 
-  .hourly-forecast {
-    grid-area: hourly-forecast;
-    inline-size: 300px;
-    background-color: hsl(243, 27%, 20%);
-    border: solid hsl(243, 23%, 24%) 2px;
-    border-radius: 10px;
-    padding-inline: 15px;
-    position: relative;
-    max-block-size: 520px;
-  }
-
-  .scroll-container {
-    overflow: auto;
-    max-block-size: 80%;
-  }
-
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: black;
-    border-radius: 10px;
-  }
-
   .daily-forecast {
     grid-area: daily-forecast;
+  }
+
+  .daily-forecast h3 {
+    margin-block-start: 0;
   }
 
   
@@ -345,10 +325,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    inline-size: 3.5rem;
   }
 
   .forecast-cards p {
     margin-block: 10px;
+    font-size: 0.8rem;
   }
 
   .min-max-temp {
@@ -408,21 +390,50 @@
     margin: 0;
   }
 
+  .hourly-forecast {
+    grid-area: hourly-forecast;
+    background-color: hsl(243, 27%, 20%);
+    border: solid hsl(243, 23%, 24%) 2px;
+    border-radius: 10px;
+    padding-inline: 15px;
+    position: relative;
+    max-block-size: 520px;
+    font-size: 0.8rem;
+    inline-size: 18rem;
+    padding: 0;
+  }
+
+  .scroll-container {
+    overflow: auto;
+    max-block-size: 85%;
+    padding-inline: 15px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(243, 23%, 24%);
+    border-radius: 10px;
+  }
+
   .hourly-forecast-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding-inline: 10px;
   }
 
   .hourly-card{
-    background-color: hsl(243, 23%, 30%);
+    background-color: hsl(243, 23%, 24%);
     border-radius: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-block: 5px;
+    margin-block: 0.7rem;
   }
   .hourly-card img {
     margin-inline-start: 10px;

@@ -40,6 +40,7 @@ async function submitLocation() {
   toSend({location, weatherData});
   search = "";
   results = "";
+  toggleDropdown = false;
 }
 </script>
 
@@ -80,7 +81,7 @@ async function submitLocation() {
         </div>
       {/if}
     </div>
-    <button class="search" on:click={submitLocation}>Submit</button>
+    <button class="search" on:click={submitLocation}>Search</button>
   </div>
   
 </div>
@@ -167,6 +168,14 @@ async function submitLocation() {
 
   .search:hover {
     background-color:hsl(248, 70%, 36%);
+  }
+
+  .search:active  {
+      box-shadow: 
+      inset 0 0 0 2px hsl(248, 70%, 36%), 
+      inset 0 0 0 4px black;
+      
+      
   }
 
   .dropdown {

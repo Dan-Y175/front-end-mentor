@@ -27,11 +27,12 @@
       background-color: hsl(243, 96%, 9%);
       color: hsl(0, 0%, 100%);
       font-family: "DM Sans";
-      font: 18px;
+      font-size: 18px;
+      margin: 0;
     }
 
     .frame {
-      margin: 2rem 5rem;
+      min-inline-size: 1440px;
     }
 
   </style>

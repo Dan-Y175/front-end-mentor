@@ -2,6 +2,7 @@
     import logo from "../assets/images/logo.svg"
     import unit from "../assets/images/icon-units.svg";
     import dropImg from "../assets/images/icon-dropdown.svg";
+    import checkImg from "../assets/images/icon-checkmark.svg"
 
     let unitsDrop = false;
     let imperial = false;
@@ -45,8 +46,8 @@
         <img src={logo} alt="logo"/>
     </div>
 
-    <div class="units" bind:this={dropDown}>
-        <button on:click={() => unitsDrop = !unitsDrop}>
+    <div class="units" bind:this={dropDown} class:button-active={unitsDrop}>
+        <button on:click={() => unitsDrop = !unitsDrop} >
         <span>
             <img src={unit} alt="unit" width="13px"/>
             <p>Units</p>
@@ -64,23 +65,23 @@
                 {/if}
                 <p>Temperature</p>
 
-                <li class:active={toggled.temperature == "celsius"} on:click={() => toggled.temperature = "celsius"}>Celsius (*C)
-                    <span> {#if toggled.temperature == "celsius"} ✔ {/if}</span></li>
+                <li class:active={toggled.temperature == "celsius"} on:click={() => toggled.temperature = "celsius"}>Celsius (°C)
+                    <span> {#if toggled.temperature == "celsius"} <img src={checkImg} alt="checkImg" width=15px/> {/if}</span></li>
 
-                <li class:active={toggled.temperature == "fahrenheit"} on:click={() => toggled.temperature = "fahrenheit"}>Fahrenheit (*F)
-                    <span> {#if toggled.temperature == "fahrenheit"} ✔ {/if}</span></li>
+                <li class:active={toggled.temperature == "fahrenheit"} on:click={() => toggled.temperature = "fahrenheit"}>Fahrenheit (°F)
+                    <span> {#if toggled.temperature == "fahrenheit"} <img src={checkImg} alt="checkImg" width=15px/> {/if}</span></li>
                 <hr>
                 <p>Wind Speed</p>
                 <li class:active={toggled.windSpeed == "kmh"} on:click={() => toggled.windSpeed = "kmh"}>km/h
-                    <span> {#if toggled.windSpeed == "kmh"} ✔ {/if}</span></li>
+                    <span> {#if toggled.windSpeed == "kmh"} <img src={checkImg} alt="checkImg" width=15px/> {/if}</span></li>
                 <li class:active={toggled.windSpeed == "mph"} on:click={() => toggled.windSpeed = "mph"}>mph
-                    <span> {#if toggled.windSpeed == "mph"} ✔ {/if}</span></li>
+                    <span> {#if toggled.windSpeed == "mph"} <img src={checkImg} alt="checkImg" width=15px/> {/if}</span></li>
                 <hr>
                 <p>Precipitation</p>
                 <li class:active={toggled.precipitation == "mm"} on:click={() => toggled.precipitation = "mm"}>Milimeters (mm)
-                    <span> {#if toggled.precipitation == "mm"} ✔ {/if}</span></li>
+                    <span> {#if toggled.precipitation == "mm"} <img src={checkImg} alt="checkImg" width=15px/> {/if}</span></li>
                 <li class:active={toggled.precipitation == "inch"} on:click={() => toggled.precipitation = "inch"}>Inches (in)
-                    <span> {#if toggled.precipitation == "inch"} ✔ {/if}</span></li>
+                    <span> {#if toggled.precipitation == "inch"} <img src={checkImg} alt="checkImg" width=15px/> {/if}</span></li>
             </ul>
         {/if}
     </div>
@@ -88,13 +89,13 @@
 
 
 <style>
-
-
     .header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        margin-inline: 10%;
+        margin-block-start: 2%;
     }
 
     .units {
@@ -102,11 +103,17 @@
         border-radius: 5px;
         position: relative;
         z-index: 1;
+        font-size: 0.8rem;
+        border: solid transparent;
     }
 
     .units button {
         all: unset;
-        padding: 5px 10px;
+        padding: 8px 10px;
+    }
+
+    .button-active {
+        border: solid white;
     }
 
     .units span{
