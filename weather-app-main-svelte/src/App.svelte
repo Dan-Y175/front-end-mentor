@@ -33,6 +33,10 @@
 
     .frame {
       min-inline-size: 1440px;
+
+      @media (max-width: 376px) {
+        min-inline-size: 205px;
+      }
     }
 
   </style>

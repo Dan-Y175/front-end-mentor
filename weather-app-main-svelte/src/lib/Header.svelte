@@ -43,7 +43,7 @@
   
 <div class="header">
     <div class="weather-now-header">
-        <img src={logo} alt="logo"/>
+        <img class="logo" src={logo} alt="logo"/>
     </div>
 
     <div class="units" bind:this={dropDown} class:button-active={unitsDrop}>
@@ -96,6 +96,16 @@
         align-items: center;
         margin-inline: 10%;
         margin-block-start: 2%;
+
+        transform: scale(1);
+        transform-origin: top;
+        
+            
+        @media (max-width: 376px) {
+            margin-inline: 0;
+            inline-size: 375px;
+            transform: scale(0.8);
+    }
     }
 
     .units {
@@ -169,6 +179,7 @@
     .active {
         background-color: hsl(243, 23%, 30%);
     }
+
 
 
 </style>

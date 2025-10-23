@@ -115,17 +115,28 @@ async function submitLocation() {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @media (max-width: 376px) {
+      inline-size: 375px;
+    }
   }
 
   .container > h1 {
     font-size: 3rem;
     margin-block-end: 3rem;
+    @media (max-width: 376px) {
+      text-align: center;
+      font-size: 2.5rem;
+  }
   }
 
   .search-bar {
     display: flex;
     flex-direction: row;
     gap: 10px;
+    @media (max-width: 376px) {
+      flex-direction: column;
+  }
   }
 
   .search-box {
@@ -140,6 +151,10 @@ async function submitLocation() {
     flex-direction: row;
     border: 2px solid transparent;
     position: relative;
+
+    @media (max-width: 376px) {
+      inline-size: 300px;
+  }
   }
 
   .search-box:focus-within {
@@ -164,6 +179,9 @@ async function submitLocation() {
     padding: 10px;
     padding-inline: 15px;
     border-radius: 10px;
+    @media (max-width: 376px) {
+      text-align: center;
+  }
   }
 
   .search:hover {
@@ -174,8 +192,6 @@ async function submitLocation() {
       box-shadow: 
       inset 0 0 0 2px hsl(248, 70%, 36%), 
       inset 0 0 0 4px black;
-      
-      
   }
 
   .dropdown {
@@ -187,6 +203,10 @@ async function submitLocation() {
     inline-size: 100%;
     z-index: 1;
     padding-inline-start: 10px;
+
+    @media (max-width: 376px) {
+      top: -400%;
+  }
   }
 
   .dropdown ul {
@@ -217,6 +237,10 @@ async function submitLocation() {
     text-align: center;
     gap: 10px;
   }
+
+
+
+
 
 
 

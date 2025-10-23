@@ -9,6 +9,7 @@
   import stormIcon from "../assets/images/icon-storm.webp"
   import errorIcon from "../assets/images/icon-error.svg"
   import dropImg from "../assets/images/icon-dropdown.svg";
+  
 
   let {location, weatherData, windSpeedUnit, precipitationUnit, temperatureUnit} = $props();
 
@@ -147,7 +148,7 @@
         </div>
         <div class="main-card-temp">
           <img src={getWeatherCode(weatherData.current.weather_code)} alt="sunIcon" width="100px">
-          <p>{temperatureConverter(weatherData.current.temperature_2m)}</p>
+          <p>{temperatureConverter(weatherData.current.temperature_2m)}°</p>
         </div>
       </div>
     </div>
@@ -238,18 +239,33 @@
     margin-block: 30px;
     inline-size: 1000px;
     margin-inline: auto;
+
+    @media (max-width: 376px) {
+      grid-template-areas: 
+      "main-card"
+      "daily-forecast"
+      "hourly-forecast";
+      inline-size: 375px;
+  }
   }
 
   .main-card {
     grid-area: main-card;
     background-image: url("../assets/images/bg-today-large.svg");
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: cover;
     block-size: 200px;
     border-radius: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    @media (max-width: 376px) {
+      background-image: url("../assets/images/bg-today-small.svg");
+      background-size: cover;
+      block-size: 275px;
+      margin-inline: 20px;
+  }
   }
 
   .main-card-content {
@@ -258,17 +274,39 @@
     flex-direction: row;
     justify-content: space-between;
     margin-inline: 2rem;
+
+    @media (max-width: 376px){
+      flex-direction: column;
+      text-align: center;
+
+    }
   }
 
   .location {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    @media (max-width: 376px) {
+
+      h2 {
+        min-block-size: 5rem;
+        margin: 0;
+      }
+      p {
+        margin: 0;
+      }
+    }
   }
 
   .main-card-temp {
     display: flex;
     align-items: center;
+    
+    @media (max-width: 376px) {
+      block-size: 100px;
+      justify-content: space-between;
+    }
   }
 
   .main-card-temp p {
@@ -276,10 +314,18 @@
   }
 
   .main-card-lower-section {
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-block-start: 20px;
+
+    @media (max-width: 376px){
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      justify-content: center;
+      margin-inline: 20px;
+    }
 
   }
 
@@ -290,6 +336,10 @@
     border: solid hsl(243, 23%, 24%) 2px;
     padding: 10px;
     inline-size: 8rem;
+
+    @media (max-width: 376px){
+      inline-size: auto;
+    }
   }
 
   .main-card-boxes p {
@@ -308,6 +358,10 @@
 
   .daily-forecast h3 {
     margin-block-start: 0;
+
+    @media (max-width: 376px) {
+      margin-inline-start: 20px;
+    }
   }
 
   
@@ -315,6 +369,15 @@
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+
+    @media (max-width: 376px){
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-inline: 20px;
+
+     }
   }
 
   .forecast-cards {
@@ -326,6 +389,10 @@
     flex-direction: column;
     align-items: center;
     inline-size: 3.5rem;
+
+    @media (max-width: 376px){
+      inline-size: auto;
+     }
   }
 
   .forecast-cards p {
@@ -401,6 +468,11 @@
     font-size: 0.8rem;
     inline-size: 18rem;
     padding: 0;
+
+    @media (max-width: 376px) {
+      margin-inline: 20px;
+      inline-size: auto;
+    }
   }
 
   .scroll-container {
