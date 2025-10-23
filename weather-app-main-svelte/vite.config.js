@@ -4,7 +4,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [svelte()],
-  base: '/front-end-mentor/',
+  base: '/front-end-mentor/weather-app-main-svelte',
   build: {
   rollupOptions: {
     output: {
