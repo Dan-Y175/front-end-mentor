@@ -24,7 +24,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Add live site URL here](https://dan-y175.github.io/front-end-mentor/weather-app-main-svelte/dist/)
+- Live Site URL: [Link](https://dan-y175.github.io/front-end-mentor/weather-app-main-svelte/dist/)
 
 ## My process
 
@@ -34,4 +34,4 @@ Users should be able to:
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/Dan-Y175)
+- Frontend Mentor - [Dan-Y175](https://www.frontendmentor.io/profile/Dan-Y175)
