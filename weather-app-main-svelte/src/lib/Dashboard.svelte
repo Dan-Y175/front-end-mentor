@@ -469,7 +469,7 @@
     inline-size: 18rem;
     padding: 0;
 
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       margin-inline: 20px;
       inline-size: auto;
     }
