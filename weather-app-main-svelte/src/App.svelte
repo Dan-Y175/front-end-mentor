@@ -34,7 +34,7 @@
     .frame {
       min-inline-size: 1440px;
 
-      @media (max-width: 376px) {
+      @media (max-width: 400px) {
         min-inline-size: 205px;
       }
     }

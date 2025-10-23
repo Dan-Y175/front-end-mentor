@@ -101,7 +101,7 @@
         transform-origin: top;
         
             
-        @media (max-width: 376px) {
+        @media (max-width: 400px) {
             margin-inline: 0;
             inline-size: 375px;
             transform: scale(0.8);

@@ -240,7 +240,7 @@
     inline-size: 1000px;
     margin-inline: auto;
 
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       grid-template-areas: 
       "main-card"
       "daily-forecast"
@@ -260,7 +260,7 @@
     flex-direction: row;
     align-items: center;
 
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       background-image: url("../assets/images/bg-today-small.svg");
       background-size: cover;
       block-size: 275px;
@@ -275,7 +275,7 @@
     justify-content: space-between;
     margin-inline: 2rem;
 
-    @media (max-width: 376px){
+    @media (max-width: 400px){
       flex-direction: column;
       text-align: center;
 
@@ -287,7 +287,7 @@
     flex-direction: column;
     justify-content: center;
 
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
 
       h2 {
         min-block-size: 5rem;
@@ -303,7 +303,7 @@
     display: flex;
     align-items: center;
     
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       block-size: 100px;
       justify-content: space-between;
     }
@@ -319,7 +319,7 @@
     justify-content: space-between;
     margin-block-start: 20px;
 
-    @media (max-width: 376px){
+    @media (max-width: 400px){
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
@@ -337,7 +337,7 @@
     padding: 10px;
     inline-size: 8rem;
 
-    @media (max-width: 376px){
+    @media (max-width: 400px){
       inline-size: auto;
     }
   }
@@ -359,7 +359,7 @@
   .daily-forecast h3 {
     margin-block-start: 0;
 
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       margin-inline-start: 20px;
     }
   }
@@ -370,7 +370,7 @@
     flex-direction: row;
     justify-content: space-between;
 
-    @media (max-width: 376px){
+    @media (max-width: 400px){
       display: grid;
       grid-template-rows: 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr;

@@ -116,7 +116,7 @@ async function submitLocation() {
     flex-direction: column;
     align-items: center;
 
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       inline-size: 375px;
     }
   }
@@ -124,7 +124,7 @@ async function submitLocation() {
   .container > h1 {
     font-size: 3rem;
     margin-block-end: 3rem;
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       text-align: center;
       font-size: 2.5rem;
   }
@@ -134,7 +134,7 @@ async function submitLocation() {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       flex-direction: column;
   }
   }
@@ -152,7 +152,7 @@ async function submitLocation() {
     border: 2px solid transparent;
     position: relative;
 
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       inline-size: 300px;
   }
   }
@@ -179,7 +179,7 @@ async function submitLocation() {
     padding: 10px;
     padding-inline: 15px;
     border-radius: 10px;
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       text-align: center;
   }
   }
@@ -204,7 +204,7 @@ async function submitLocation() {
     z-index: 1;
     padding-inline-start: 10px;
 
-    @media (max-width: 376px) {
+    @media (max-width: 400px) {
       top: -400%;
   }
   }
